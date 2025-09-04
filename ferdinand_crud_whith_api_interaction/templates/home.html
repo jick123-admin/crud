@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<h1>Home page</h1>
+<form action="
+	{% if student %}
+		/update/{{student.id}}
+	{% else %}
+		/add
+	{% endif %}
+" method="POST">
+	<input type="text" name="name" value="{{ student.name if student else ''}}">
+	<input type="number" name="age" value="{{ student.age if student else ''}}">
+	<button>
+		{% if student %}
+			update
+		{% else %}
+			submit
+		{% endif %}
+	</button>
+</form>
+<h1>Data from database</h1>
+<table border="1">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>age</th>
+		<th>action</th>
+	</tr>
+
+	{% for s in students %}
+		<tr>
+			<td>{{s.id}}</td>
+			<td>{{s.name}}</td>
+			<td>{{s.age}}</td>
+			<td>
+				<a href="/edit/{{s.id}}">update</a>
+				<a href="/delete/{{s.id}}">delete</a>
+			</td>
+		</tr>
+	{% endfor %}
+</table>
+
+
+
+<h1>Data from api</h1>
+<table border="1">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>age</th>
+		<th>gender</th>
+	</tr>
+
+	{% for d in data %}
+		<tr>
+			<td>{{d.id}}</td>
+			<td>{{d.name}}</td>
+			<td>{{d.age}}</td>
+			<td>{{d.gender}}</td>
+		</tr>
+	{% endfor %}
+</table>
+</body>
+</html>
